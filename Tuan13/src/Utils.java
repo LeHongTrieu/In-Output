@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Utils {
+    /**
+     * Hàm xóa file.
+     */
     public static void clearFileContent(String path) {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(path))) {
             writer.write("");
@@ -14,6 +17,10 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Hàm đọc file.
+     */
     public static String readContentFromFile(String path) {
         StringBuilder s = new StringBuilder();
         try (BufferedReader read = new BufferedReader(new FileReader(path))) {
@@ -27,6 +34,9 @@ public class Utils {
         return s.toString();
     }
 
+    /**
+     * Hàm ghi file.
+     */
     public static void writeContentToFile(String path) {
         List<String> lines = new ArrayList<>();
 
@@ -83,6 +93,9 @@ public class Utils {
         }
     }
 
+    /**
+     * Hàm ghi file.
+     */
     public static void appendContentToFile(String path) {
         BufferedWriter write = null;
         Scanner sc = null;
@@ -109,6 +122,9 @@ public class Utils {
         }
     }
 
+    /**
+     * Hàm tìm file.
+     */
     public static File findFileByName(String folderPath, String fileName) {
         File folder = new File(folderPath);
         File[] files = folder.listFiles();
