@@ -37,7 +37,7 @@ public class Utils {
     /**
      * Hàm ghi file.
      */
-    public static void writeContentToFile(String path) {
+    public static void writeContentToFile(String path, String content) {
         List<String> lines = new ArrayList<>();
 
         try {
@@ -47,30 +47,26 @@ public class Utils {
         }
 
         BufferedWriter write = null;
-        Scanner sc = null;
-
         try {
             write = new BufferedWriter(new FileWriter(path, true));
-            sc = new Scanner(System.in);
-            String writeIn = sc.nextLine();
             boolean check = true;
             for (String s : lines) {
-                if (writeIn.equals(s)) {
+                if (content.equals(s)) {
                     check = false;
                     break;
                 }
             }
             if (check) {
-                write.write(writeIn);
+                write.write(content);
             } else {
                 clearFileContent(path);
                 for (int i = 0; i < lines.size(); i++) {
-                    if (lines.get(i).equals(writeIn)) {
+                    if (lines.get(i).equals(content)) {
                         lines.remove(i);
                         i--;
                     }
                 }
-                lines.add(writeIn);
+                lines.add(content);
                 write.write(lines.get(0));
                 for (int i = 1; i < lines.size(); i++) {
                     write.write("\n");
@@ -84,9 +80,6 @@ public class Utils {
                 if (write != null) {
                     write.close();
                 }
-                if (sc != null) {
-                    sc.close();
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,25 +89,18 @@ public class Utils {
     /**
      * Hàm ghi file.
      */
-    public static void appendContentToFile(String path) {
-        BufferedWriter write = null;
-        Scanner sc = null;
-
+    public static void appendContentToFile(String path, String content) {
+        BufferedWriter writer = null;
         try {
-            write = new BufferedWriter(new FileWriter(path, true));
-            sc = new Scanner(System.in);
-            String writeIn = sc.nextLine();
-            write.write("\n");
-            write.write(writeIn);
+            writer = new BufferedWriter(new FileWriter(path, true));
+            writer.write("\n");
+            writer.write(content);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error appending content to file", e);
         } finally {
             try {
-                if (write != null) {
-                    write.close();
-                }
-                if (sc != null) {
-                    sc.close();
+                if (writer != null) {
+                    writer.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -137,4 +123,15 @@ public class Utils {
         }
         return null;
     }
+    
+    /**
+     * Test chương trình.
+     */
+//    public static void main(String []args) {
+//        Utils ut = new Utils();
+//        String path = "D:\\Admin\\Desktop\\OOP_Java\\Tuan13\\src\\test.txt";
+//        appendContentToFile(path, "Hi word");
+//        writeContentToFile(path, "Hello word");
+//    }
 }
+
